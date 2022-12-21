@@ -7,6 +7,7 @@ import {
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
+import UploadImage from "./UploadImage";
 
 function HeroesList() {
   const fbContext = useContext(FirebaseContext);
@@ -20,7 +21,10 @@ function HeroesList() {
       if (querySnap.empty) {
         console.log("No docs found");
       } else {
-        let heroesData = querySnap.docs.map((doc) => doc.data());
+        let heroesData = querySnap.docs.map((doc) => ({
+          ...doc.data(),
+          DOC_ID: doc.id,
+        }));
         setHeroes(heroesData);
       }
     });
@@ -52,12 +56,30 @@ function HeroesList() {
       <br />
       {heroes?.map((hero) => {
         return (
-          <ul key={hero.DOC_ID}>
-            <li>name: {hero.name}</li>
-            <li>vehicle: {hero.vehicle}</li>
-            <li>docId: {hero.DOC_ID}</li>
+          <>
+            <ul
+              key={hero.DOC_ID}
+              style={{
+                listStyleType: "none",
+                display: "flex",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <li style={{ width: "30%" }}>
+                {hero.imageUrl ? (
+                  <img src={hero.imageUrl} width="100%" />
+                ) : (
+                  <UploadImage docId={hero.DOC_ID} />
+                )}
+              </li>
+              <div style={{ width: "30%" }}>
+                <li>name: {hero.name}</li>
+                <li>vehicle: {hero.vehicle}</li>
+                <li>docId: {hero.DOC_ID}</li>
+              </div>
+            </ul>
             <hr />
-          </ul>
+          </>
         );
       })}
     </div>
