@@ -8,9 +8,11 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import UploadImage from "./UploadImage";
+import { AuthContext } from "../providers/AuthProvider";
 
 function HeroesList() {
   const fbContext = useContext(FirebaseContext);
+  const { user } = useContext(AuthContext);
   const db = fbContext.db;
   const [heroes, setHeroes] = useState([]);
 
@@ -29,7 +31,7 @@ function HeroesList() {
       }
     });
     return unsubscribe;
-  }, []);
+  }, [user]);
 
   const getHeroesData = async () => {
     try {

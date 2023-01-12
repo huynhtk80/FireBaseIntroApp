@@ -6,6 +6,7 @@ import { AuthContext } from "../providers/AuthProvider";
 import LoginForm from "./LoginForm";
 import HeroesList from "./HeroesList";
 import AddHeroForm from "./AddHeroForm";
+import SignupFirebaseUI from "./SignupFirebaseUI";
 
 export function RestofApp() {
   const fbContext = useContext(FirebaseContext);
@@ -17,6 +18,7 @@ export function RestofApp() {
       <div className="App">
         {user ? "you are logged in!" : "not logged in!"}
       </div>
+      {user ? "Logged" : <SignupFirebaseUI />}
       <LoginForm />
       <HeroesList />
       <AddHeroForm />

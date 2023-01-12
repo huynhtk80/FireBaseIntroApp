@@ -6,11 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "emu": "firebase emulators:start --import emulator-storage --export-on-exit"
   },
   "dependencies": {
     "@videojs/http-streaming": "^2.15.1",
+    "daisyui": "^2.46.1",
     "firebase": "^9.15.0",
+    "firebaseui": "^6.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "videojs-contrib-quality-levels": "^2.2.1",

@@ -1,8 +1,11 @@
 import {
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { FirebaseContext } from "./FirebaseProvider";
 
@@ -12,6 +15,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const fbContext = useContext(FirebaseContext);
   const auth = fbContext.auth;
+
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+
+  const signInWithGoogle = () => signInWithPopup(auth, provider);
 
   useEffect(() => {
     console.log("fbcontext", fbContext);
@@ -45,7 +53,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, signInWithGoogle }}>
       {children}
     </AuthContext.Provider>
   );

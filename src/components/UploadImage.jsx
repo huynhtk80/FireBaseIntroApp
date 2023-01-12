@@ -5,8 +5,6 @@ import { FirebaseContext } from "../providers/FirebaseProvider";
 
 function UploadImage(props) {
   const docId = props.docId;
-  console.log("doc id", docId);
-  const heroName = props.heroName;
   const fbContext = useContext(FirebaseContext);
   const db = fbContext.db;
   const store = fbContext.store;
